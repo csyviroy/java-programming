@@ -23,7 +23,7 @@ public class Index {
 
 		System.out.println("vector size: " + v.capacity());
 		
-		if (v.contains("Hello World"))
+		if (v.contains("Hello world"))
 			System.out.print("found it");
 		
 		if (v.contains(5))
