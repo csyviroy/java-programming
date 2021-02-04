@@ -1,4 +1,4 @@
-package com.example.comparator_usage;
+package com.example.comparator_usages;
 
 import java.util.*;
 
