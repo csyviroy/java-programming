@@ -1,4 +1,4 @@
-package com.example.auctionhouse;
+package com.example.auctionhouse.userprofile;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,9 +1,9 @@
-package com.example.auctionhouse;
+package com.example.auctionhouse.userprofile;
 
 import java.util.*;
 
 interface UserProfileInteraction{
-	public void createUserProfile(String name, Date dob, String occupatio);
+	public void createUserProfile(String name, Date dob, String occupation);
 	public void deleteUserProfile(String uniqueID);
 	public void updateUserProfile(String uniqueID, String newOccupation);
 	public void viewUserProfile(String uniqueID);

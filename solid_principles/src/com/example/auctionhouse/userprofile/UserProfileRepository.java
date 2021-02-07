@@ -1,6 +1,9 @@
-package com.example.auctionhouse;
+package com.example.auctionhouse.userprofile;
 
 import java.util.*;
+
+import com.example.auctionhouse.ioservice.FileObject;
+
 import java.io.*;
 
 interface addUserProfile {
@@ -20,21 +23,21 @@ interface viewUserProfile {
 	public UserProfile getUserProfile(String uniqueID);
 }
 
-interface fileWriteObject{
-	public void fileWriteObject();
-}
 
-interface fileReadObject{
-	public void fileReadObject();
-}
-
-public class UserProfileRepository implements addUserProfile, deleteUserProfile, updateUserProfile, viewUserProfile, fileWriteObject, fileReadObject{
+public class UserProfileRepository extends FileObject<UserProfile> implements addUserProfile, deleteUserProfile, updateUserProfile, viewUserProfile{
 	private String fileName;
 	private List<UserProfile> userList;
 	
 	UserProfileRepository(String fileName){
 		this.fileName = fileName;
-		fileReadObject();
+		this.userList = fileReadObject(this.fileName);
+		if (this.userList == null){
+			this.userList = new ArrayList<UserProfile>();
+			System.out.println("Unable to find existing file, user profile start fresh.");
+		}
+		else {
+			System.out.println("System file managed to read user profile.");
+		}
 	}
 
 	@Override
@@ -48,8 +51,10 @@ public class UserProfileRepository implements addUserProfile, deleteUserProfile,
 			}
 			break;
 		}
-		
-		fileWriteObject();
+		boolean result = fileWriteObject(this.userList, this.fileName);
+		if (!result) {
+			System.out.println("Updating of user profile failed");
+		}
 	}
 
 	@Override
@@ -63,14 +68,20 @@ public class UserProfileRepository implements addUserProfile, deleteUserProfile,
 				break;
 			}
 		}
-		fileWriteObject();
+		boolean result = fileWriteObject(this.userList, this.fileName);
+		if (!result) {
+			System.out.println("Deleting of user profile failed");
+		}
 	}
 
 	@Override
 	public void addUserProfile(UserProfile u) {
 		// TODO Auto-generated method stub
 		this.userList.add(u);
-		fileWriteObject();
+		boolean result = fileWriteObject(this.userList, this.fileName);
+		if (!result) {
+			System.out.println("Adding of user profile failed");
+		}
 	}
 
 	@Override
@@ -91,47 +102,4 @@ public class UserProfileRepository implements addUserProfile, deleteUserProfile,
 		}
 		return null;
 	}
-
-	@Override
-	public void fileWriteObject() {
-		// TODO Auto-generated method stub
-		try {
-			FileOutputStream fos = null;
-			ObjectOutputStream out = null;
-			fos = new FileOutputStream(this.fileName);
-			out = new ObjectOutputStream(fos);
-			out.writeObject(this.userList);
-			out.close();
-		}
-		catch (Exception e) {
-			System.out.println("Add of user profile failed");
-			e.printStackTrace();
-		}
-	}
-	
-
-	@Override
-	public void fileReadObject() {
-		// TODO Auto-generated method stub
-		try {
-			UserProfile up = null;
-			FileInputStream fis = null;
-			ObjectInputStream in = null;
-			fis = new FileInputStream(this.fileName);
-			in = new ObjectInputStream(fis);
-			this.userList = (List<UserProfile>)in.readObject();
-			in.close();
-		}
-		catch (FileNotFoundException e) {
-			this.userList = new ArrayList<UserProfile>();
-			System.out.println("Unable to find existing file, user profile start fresh.");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 }
