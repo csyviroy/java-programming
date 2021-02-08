@@ -12,7 +12,7 @@ interface PaymentInterfaceServiceAction{
 	public void deletePaymentInterface(String identifier);
 	public void viewPaymentInterfaceList();
 	public void viewPaymentInterface(String identifier);
-	
+	public void chargePaymentInterface(String identifier, double amt);
 }
 
 public class PaymentInterfaceService implements PaymentInterfaceServiceAction{
@@ -75,6 +75,13 @@ public class PaymentInterfaceService implements PaymentInterfaceServiceAction{
 		}
 		else
 			System.out.println("No matching payment interface found");
+	}
+
+	@Override
+	public void chargePaymentInterface(String identifier, double amt) {
+		// TODO Auto-generated method stub
+		PaymentInterface pi = pir.getPaymentInterface(identifier);
+		pi.pay(amt);
 	}
 	
 }
