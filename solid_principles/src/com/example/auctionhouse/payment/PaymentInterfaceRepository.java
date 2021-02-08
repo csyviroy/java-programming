@@ -1,29 +1,27 @@
 package com.example.auctionhouse.payment;
 
 import java.util.*;
-
 import com.example.auctionhouse.ioservice.FileObject;
-import com.example.auctionhouse.userprofile.UserProfile;
 
-interface PaymentAction{
-	public void addPaymentType(PaymentType p);
-	public void deletePaymentType(PaymentType p);
+interface PaymentInterfaceAction{
+	public void addPaymentInterface(PaymentInterface p);
+	public void deletePaymentInterface(PaymentInterface p);
 }
 
-interface viewPaymentAction {
-	public List<PaymentType> getPayment();
-	public PaymentType getPayment(String id);
+interface viewPaymentInterfaceAction {
+	public List<PaymentInterface> getPaymentInterfaceList();
+	public PaymentInterface getPaymentInterface(String id);
 }
 
-public class PaymentTypeRepository extends FileObject<PaymentType> implements PaymentAction, viewPaymentAction {
+public class PaymentInterfaceRepository extends FileObject<PaymentInterface> implements PaymentInterfaceAction, viewPaymentInterfaceAction {
 	private String fileName;
-	private List<PaymentType> pList;
+	private List<PaymentInterface> pList;
 	
-	PaymentTypeRepository(String fileName){
+	PaymentInterfaceRepository(String fileName){
 		this.fileName = fileName;
 		this.pList = fileReadObject(this.fileName);
 		if (this.pList == null){
-			this.pList = new ArrayList<PaymentType>();
+			this.pList = new ArrayList<PaymentInterface>();
 			System.out.println("Unable to find existing file, payment profile start fresh.");
 		}
 		else {
@@ -32,18 +30,18 @@ public class PaymentTypeRepository extends FileObject<PaymentType> implements Pa
 	}
 	
 	@Override
-	public List<PaymentType> getPayment() {
+	public List<PaymentInterface> getPaymentInterfaceList() {
 		// TODO Auto-generated method stub
 		return this.pList;
 	}
 	
 	@Override
-	public PaymentType getPayment(String paymentID) {
+	public PaymentInterface getPaymentInterface(String identifier) {
 		// TODO Auto-generated method stub
 		Iterator i = this.pList.iterator();
 		while (i.hasNext()) {
-			PaymentType dbPayment = (PaymentType) i.next();
-			if (dbPayment.getPaymentID().equals(paymentID)) {
+			PaymentInterface dbPayment = (PaymentInterface) i.next();
+			if (dbPayment.getIdentitifer().equals(identifier)) {
 				return dbPayment;
 			}
 		}
@@ -51,7 +49,7 @@ public class PaymentTypeRepository extends FileObject<PaymentType> implements Pa
 	}
 
 	@Override
-	public void addPaymentType(PaymentType p) {
+	public void addPaymentInterface(PaymentInterface p) {
 		// TODO Auto-generated method stub
 		this.pList.add(p);
 		boolean result = fileWriteObject(this.pList, this.fileName);
@@ -61,12 +59,12 @@ public class PaymentTypeRepository extends FileObject<PaymentType> implements Pa
 	}
 
 	@Override
-	public void deletePaymentType(PaymentType p) {
+	public void deletePaymentInterface(PaymentInterface p) {
 		// TODO Auto-generated method stub
 		Iterator i = this.pList.iterator();
 		while (i.hasNext()) {
-			PaymentType payment = (PaymentType) i.next();
-			if (payment.getPaymentID().equals(p.getPaymentID())) {
+			PaymentInterface payment = (PaymentInterface) i.next();
+			if (payment.getIdentitifer().equals(p.getIdentitifer())) {
 				this.pList.remove(payment);
 				break;
 			}

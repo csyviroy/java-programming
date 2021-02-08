@@ -1,8 +1,9 @@
 package com.example.auctionhouse.payment;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class GooglePayment extends PaymentType {
+public class GooglePayment implements PaymentInterface, Serializable {
 
 	private String googleAccountName;
 	private String googleAccountCurrency;
@@ -11,7 +12,6 @@ public class GooglePayment extends PaymentType {
 	private boolean verified;
 	
 	GooglePayment(String googleAccountName, String googleSecretValue){
-		this.setPaymentID(UUID.randomUUID().toString());
 		this.googleAccountName = googleAccountName;
 		this.googleSecretValue = googleSecretValue;
 		this.verified = false;
@@ -69,6 +69,12 @@ public class GooglePayment extends PaymentType {
 		if (result) {
 			setVerified();
 		}
+	}
+
+	@Override
+	public String getIdentitifer() {
+		// TODO Auto-generated method stub
+		return this.getGoogleSecretValue();
 	}
 
 }

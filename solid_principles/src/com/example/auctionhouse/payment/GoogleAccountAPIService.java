@@ -13,6 +13,7 @@ public class GoogleAccountAPIService implements GoogleVerification{
 		System.out.println("Checking account information: ");
 		System.out.println("Google account name: " + g.getGoogleAccountName());
 		System.out.println("Google account secret value: " +  g.getGoogleSecretValue());
+		g.setGoogleAccountCurrency("USD");
 		System.out.println("Account verified...");
 		return true;
 	}

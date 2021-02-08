@@ -1,9 +1,10 @@
 package com.example.auctionhouse.payment;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class CardPayment extends PaymentType{
+public class CardPayment implements PaymentInterface, Serializable{
 	enum CardType{
 		credit,
 		debit
@@ -15,7 +16,6 @@ public class CardPayment extends PaymentType{
 	private boolean verified;
 	
 	CardPayment(String identityCode, String cvvValue, Date expiryDate, CardType cardType){
-		this.setPaymentID(UUID.randomUUID().toString());
 		this.identityCode = identityCode;
 		this.cvvValue = cvvValue;
 		this.expiryDate = expiryDate;
@@ -67,6 +67,12 @@ public class CardPayment extends PaymentType{
 		if (result) {
 			setVerified();
 		}
+	}
+
+	@Override
+	public String getIdentitifer() {
+		// TODO Auto-generated method stub
+		return this.getIdentityCode();
 	}
 
 }
