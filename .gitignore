@@ -27,7 +27,8 @@ hs_err_pid*
 /.metadata/
 
 # intellij .idea
-.idea/
+.DS_Store
+.idea
 
 # serializable file
-*.ser
+*/*.ser
