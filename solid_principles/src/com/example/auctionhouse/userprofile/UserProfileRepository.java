@@ -6,29 +6,19 @@ import com.example.auctionhouse.ioservice.FileObject;
 
 import java.io.*;
 
-interface addUserProfile {
+interface userProfileImp {
 	public void addUserProfile(UserProfile u);
-}
-
-interface deleteUserProfile {
 	public void deleteUserProfile(UserProfile u);
-}
-
-interface updateUserProfile {
 	public void updateUserProfile(UserProfile u);
-}
-
-interface viewUserProfile {
 	public List<UserProfile> getUserProfile();
 	public UserProfile getUserProfile(String uniqueID);
 }
 
-
-public class UserProfileRepository extends FileObject<UserProfile> implements addUserProfile, deleteUserProfile, updateUserProfile, viewUserProfile{
+public class UserProfileRepository extends FileObject<UserProfile> implements userProfileImp{
 	private String fileName;
 	private List<UserProfile> userList;
 	
-	UserProfileRepository(String fileName){
+	public UserProfileRepository(String fileName){
 		this.fileName = fileName;
 		this.userList = fileReadObject(this.fileName);
 		if (this.userList == null){
@@ -47,7 +37,8 @@ public class UserProfileRepository extends FileObject<UserProfile> implements ad
 		while (i.hasNext()) {
 			UserProfile dbUser = (UserProfile) i.next();
 			if (dbUser.getUniqueID().equals(u.getUniqueID())) {
-				dbUser.setOccupation(u.getOccupation());
+				dbUser.setCardPaymentList(u.getCardPaymentList());
+				dbUser.setEAccountPaymentList(u.getEAccountPaymentList());
 			}
 			break;
 		}

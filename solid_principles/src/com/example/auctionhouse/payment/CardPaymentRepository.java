@@ -2,13 +2,12 @@ package com.example.auctionhouse.payment;
 
 import com.example.auctionhouse.ioservice.FileObject;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 interface CardPaymentRepositoryImp{
-    public void createCardPaymentDB(CardPayment cp);
-    public List<CardPayment> readCardPaymentListDB();
-    public void deleteCardPaymentDB(CardPayment cp);
+    void createCardPayment(CardPayment cp);
+    List<CardPayment> readCardPaymentList();
+    void deleteCardPayment(CardPayment cp);
 
 }
 
@@ -30,7 +29,7 @@ public class CardPaymentRepository extends FileObject<CardPayment> implements Ca
     }
 
     @Override
-    public void createCardPaymentDB(CardPayment cp) {
+    public void createCardPayment(CardPayment cp) {
         this.cpList.add(cp);
         boolean result = fileWriteObject(this.cpList, this.fileName);
         if (!result){
@@ -39,12 +38,12 @@ public class CardPaymentRepository extends FileObject<CardPayment> implements Ca
     }
 
     @Override
-    public List<CardPayment> readCardPaymentListDB() {
+    public List<CardPayment> readCardPaymentList() {
         return this.cpList;
     }
 
     @Override
-    public void deleteCardPaymentDB(CardPayment cp) {
+    public void deleteCardPayment(CardPayment cp) {
         this.cpList.remove(cp);
         boolean result = fileWriteObject(this.cpList, this.fileName);
         if (!result){

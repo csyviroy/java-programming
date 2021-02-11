@@ -6,10 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 interface EAccountPaymentRepositoryImp{
-    public void createEAccountPaymentDB(EAccountPayment eap);
-    public List<EAccountPayment> readEAccountPaymentDBList();
-    public void updateEAccountPaymentDB(EAccountPayment eap);
-    public void deleteEAccountPaymentDB(EAccountPayment eap);
+    void createEAccountPayment(EAccountPayment eap);
+    List<EAccountPayment> readEAccountPaymentList();
+    void updateEAccountPayment(EAccountPayment eap);
+    void deleteEAccountPayment(EAccountPayment eap);
 }
 
 public class EAccountPaymentRepository extends FileObject<EAccountPayment> implements EAccountPaymentRepositoryImp{
@@ -30,7 +30,7 @@ public class EAccountPaymentRepository extends FileObject<EAccountPayment> imple
     }
 
     @Override
-    public void createEAccountPaymentDB(EAccountPayment eap) {
+    public void createEAccountPayment(EAccountPayment eap) {
         this.eapList.add(eap);
         boolean result = fileWriteObject(this.eapList, this.fileName);
         if (!result){
@@ -39,12 +39,12 @@ public class EAccountPaymentRepository extends FileObject<EAccountPayment> imple
     }
 
     @Override
-    public List<EAccountPayment> readEAccountPaymentDBList() {
+    public List<EAccountPayment> readEAccountPaymentList() {
         return this.eapList;
     }
 
     @Override
-    public void updateEAccountPaymentDB(EAccountPayment eap) {
+    public void updateEAccountPayment(EAccountPayment eap) {
         Iterator i = this.eapList.iterator();
         while (i.hasNext()){
             EAccountPayment dbPayment = (EAccountPayment) i.next();
@@ -61,7 +61,7 @@ public class EAccountPaymentRepository extends FileObject<EAccountPayment> imple
     }
 
     @Override
-    public void deleteEAccountPaymentDB(EAccountPayment eap) {
+    public void deleteEAccountPayment(EAccountPayment eap) {
         this.eapList.remove(eap);
         boolean result = fileWriteObject(this.eapList, this.fileName);
         if (!result){

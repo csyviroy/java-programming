@@ -3,7 +3,7 @@ package com.example.auctionhouse.payment;
 import java.io.Serializable;
 import java.util.Date;
 
-abstract class EAccountPayment implements PaymentInterfaceImp, Serializable {
+public abstract class EAccountPayment extends PaymentObject implements Serializable {
     private String username;
     private String secretKey;
     private Date associatedOn;

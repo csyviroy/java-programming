@@ -3,7 +3,7 @@ package com.example.auctionhouse.payment;
 import java.io.*;
 import java.util.Date;
 
-abstract class CardPayment implements PaymentInterfaceImp, Serializable{
+public abstract class CardPayment extends PaymentObject implements Serializable{
     private String identityCode;
     private short cvv;
     private Date expiryDate;

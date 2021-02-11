@@ -1,23 +1,29 @@
 package com.example.auctionhouse.payment;
 
-interface GrabAPIServiceImp{
-    public boolean verify(GrabPay gp);
-    public void makeTransaction(GrabPay gp, double amt);
-}
+public class GrabAPIService implements PaymentServiceImp{
 
-public class GrabAPIService implements GrabAPIServiceImp{
+    private GrabPay gp;
+
+    public GrabAPIService(GrabPay gp) {
+        this.gp = gp;
+    }
 
     @Override
-    public boolean verify(GrabPay gp) {
+    public boolean verify() {
         System.out.println("Grab Worker is processing the detail.");
-        System.out.println("Grab username: " + gp.getUsername());
-        System.out.println("Grab secret code: " + gp.getSecretKey());
+        System.out.println("Grab username: " + this.gp.getUsername());
+        System.out.println("Grab secret code: " + this.gp.getSecretKey());
         System.out.println("Verification complete.");
         return true;
     }
 
     @Override
-    public void makeTransaction(GrabPay gp, double amt) {
-        System.out.println("Transaction complete.");
+    public void pay(double amt) {
+        try{
+            System.out.println("Transaction Completed.");
+        }
+        catch (Exception e){
+            System.out.println("Transaction Failed.");
+        }
     }
 }

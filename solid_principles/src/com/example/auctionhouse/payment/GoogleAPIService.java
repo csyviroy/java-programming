@@ -1,23 +1,31 @@
 package com.example.auctionhouse.payment;
 
-interface GoogleAPIServiceImp{
-    public boolean verify(GooglePay gp);
-    public void makeTransaction(double amt);
-}
+public class GoogleAPIService implements PaymentServiceImp{
 
-public class GoogleAPIService implements GoogleAPIServiceImp{
+    GooglePay gp;
+
+    public GoogleAPIService(GooglePay gp) {
+        this.gp = gp;
+    }
 
     @Override
-    public boolean verify(GooglePay gp) {
+    public boolean verify() {
         System.out.println("Verifying Google account detail: ");
-        System.out.println("Google username: " + gp.getUsername());
-        System.out.println("Secret value: " +  gp.getSecretKey());
+        System.out.println("Google username: " + this.gp.getUsername());
+        System.out.println("Secret value: " +  this.gp.getSecretKey());
         System.out.println("Account verification completed.");
         return true;
     }
 
     @Override
-    public void makeTransaction(double amt) {
-        System.out.println("Transaction completed.");
+    public void pay(double amt) {
+        try{
+            System.out.println("Transaction Completed.");
+        }
+        catch (Exception e){
+            System.out.println("Transaction Failed.");
+        }
     }
+
+
 }
