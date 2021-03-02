@@ -8,6 +8,14 @@ public class CreditCardAPIService implements PaymentServiceImp{
 
     public CreditCardAPIService(CreditCard cc) {
         this.cc = cc;
+        if (verify()){
+            System.out.println("Credit card verification successful.");
+            this.cc.setVerified(true);
+        }
+        else{
+            System.out.println("Credit card verification unsuccessful.");
+            this.cc.setVerified(false);
+        }
     }
 
     @Override
@@ -28,12 +36,16 @@ public class CreditCardAPIService implements PaymentServiceImp{
 
     @Override
     public void pay(double amt) {
-        try{
-            //deduct amt from cc
-            System.out.println("Transaction Completed.");
+        if (this.cc.isVerified()) {
+            try {
+                //deduct amt from cc
+                System.out.println("Transaction Completed.");
+            } catch (Exception e) {
+                System.out.println("Transaction Failed.");
+            }
         }
-        catch (Exception e){
-            System.out.println("Transaction Failed.");
+        else{
+            System.out.println("Credit card is not verified.");
         }
     }
 }

@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * The UserProfile class is a pojo class used to pass user profile information
+ */
 public class UserProfile implements Serializable{
 	private String name;
 	private Date dob;
@@ -17,6 +20,23 @@ public class UserProfile implements Serializable{
 	private String createdAt;
 	private List<CardPayment> cardPaymentList;
 	private List<EAccountPayment> eAccountPaymentList;
+	private int userProfileToken = 0;
+
+	public List<EAccountPayment> geteAccountPaymentList() {
+		return eAccountPaymentList;
+	}
+
+	public void seteAccountPaymentList(List<EAccountPayment> eAccountPaymentList) {
+		this.eAccountPaymentList = eAccountPaymentList;
+	}
+
+	public int getUserProfileToken() {
+		return userProfileToken;
+	}
+
+	public void setUserProfileToken(int userProfileToken) {
+		this.userProfileToken = userProfileToken;
+	}
 
 	public UserProfile(String name, Date dob, String occupation){
 		this.name = name;
@@ -72,11 +92,5 @@ public class UserProfile implements Serializable{
 		this.cardPaymentList = cardPaymentList;
 	}
 
-	public List<EAccountPayment> getEAccountPaymentList() {
-		return this.eAccountPaymentList;
-	}
 
-	public void setEAccountPaymentList(List<EAccountPayment> eAccountPaymentList) {
-		this.eAccountPaymentList = eAccountPaymentList;
-	}
 }

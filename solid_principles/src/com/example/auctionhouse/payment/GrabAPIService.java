@@ -6,6 +6,14 @@ public class GrabAPIService implements PaymentServiceImp{
 
     public GrabAPIService(GrabPay gp) {
         this.gp = gp;
+        if (verify()){
+            System.out.println("Grab Pay interface verification successful.");
+            this.gp.setVerified(true);
+        }
+        else{
+            System.out.println("Grab Pay interface verification unsuccessful.");
+            this.gp.setVerified(false);
+        }
     }
 
     @Override
@@ -19,11 +27,15 @@ public class GrabAPIService implements PaymentServiceImp{
 
     @Override
     public void pay(double amt) {
-        try{
-            System.out.println("Transaction Completed.");
+        if (this.gp.isVerified()) {
+            try {
+                System.out.println("Transaction Completed.");
+            } catch (Exception e) {
+                System.out.println("Transaction Failed.");
+            }
         }
-        catch (Exception e){
-            System.out.println("Transaction Failed.");
+        else{
+            System.out.println("Grab Pay interface is not verified.");
         }
     }
 }

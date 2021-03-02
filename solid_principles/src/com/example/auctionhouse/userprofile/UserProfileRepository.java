@@ -38,7 +38,7 @@ public class UserProfileRepository extends FileObject<UserProfile> implements us
 			UserProfile dbUser = (UserProfile) i.next();
 			if (dbUser.getUniqueID().equals(u.getUniqueID())) {
 				dbUser.setCardPaymentList(u.getCardPaymentList());
-				dbUser.setEAccountPaymentList(u.getEAccountPaymentList());
+				dbUser.seteAccountPaymentList(u.geteAccountPaymentList());
 			}
 			break;
 		}

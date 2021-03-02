@@ -8,6 +8,14 @@ public class DebitCardAPIService implements PaymentServiceImp{
 
     public DebitCardAPIService(DebitCard dc) {
         this.dc = dc;
+        if (verify()){
+            System.out.println("Debit card verification successful.");
+            this.dc.setVerified(true);
+        }
+        else{
+            System.out.println("Debit card verification unsuccessful.");
+            this.dc.setVerified(false);
+        }
     }
 
     @Override
@@ -27,12 +35,16 @@ public class DebitCardAPIService implements PaymentServiceImp{
     }
 
     public void pay(double amt){
-        try {
-            //deduct amt from db
-            System.out.println("Transaction Completed.");
+        if (this.dc.isVerified()) {
+            try {
+                //deduct amt from db
+                System.out.println("Transaction Completed.");
+            } catch (Exception e) {
+                System.out.println("Transaction Failed.");
+            }
         }
-        catch (Exception e) {
-            System.out.println("Transaction Failed.");
+        else{
+            System.out.println("Debit card is not verified.");
         }
     }
 }

@@ -6,6 +6,14 @@ public class SamsungAPIService implements PaymentServiceImp{
 
     public SamsungAPIService(SamsungPay sp) {
         this.sp = sp;
+        if (verify()){
+            System.out.println("Samsung Pay interface verification successful.");
+            this.sp.setVerified(true);
+        }
+        else{
+            System.out.println("Samsung Pay interface verification unsuccessful.");
+            this.sp.setVerified(false);
+        }
     }
 
     @Override
@@ -19,12 +27,16 @@ public class SamsungAPIService implements PaymentServiceImp{
 
     @Override
     public void pay(double amt) {
-        try{
-            //deduct amt from sp
-            System.out.println("Transaction Completed.");
+        if (this.sp.isVerified()) {
+            try {
+                //deduct amt from sp
+                System.out.println("Transaction Completed.");
+            } catch (Exception e) {
+                System.out.println("Transaction Failed.");
+            }
         }
-        catch (Exception e){
-            System.out.println("Transaction Failed.");
+        else{
+            System.out.println("Samsung Pay interface is not verified.");
         }
     }
 }
